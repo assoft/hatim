@@ -18,3 +18,5 @@ Eğer listenizde 30'dan daha fazla isim varsa bunları 30 kişilik listelere ay�
 ./hatim liste1.txt
 ./hatim liste2.txt
 ```
+
+Beni ziyadesiyle yorduğundan hatta zıvanadan çıkardığından dolayı [RUST'a](https://www.rust-lang.org/tr/) teşekkür ederim :)
