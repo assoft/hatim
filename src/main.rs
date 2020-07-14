@@ -101,7 +101,9 @@ fn write_table(list: Vec<User>) -> std::io::Result<()> {
     let first_year = &dates[0][first_len - 4 .. first_len]; 
     let last_len = dates[29].len();
     let last_year = &dates[29][last_len - 4 .. last_len];
-    let name = format!("hatim_listesi-[{}-{}].txt", first_year, last_year);
+    let timestamp = Utc::now().timestamp();
+    println!("{}", timestamp);
+    let name = format!("hatim_listesi-[{}-{}]-{}.txt", first_year, last_year, timestamp);
 
     let out = File::create(name)?;
     table.to_csv(out)?;
@@ -113,11 +115,22 @@ fn read_user_list(file: &str) -> std::io::Result<()> {
     use rand::thread_rng;
     use rand::seq::SliceRandom;
 
+    println!("UYARI: Argüman olarak verdiğiniz listedeki sıralama geçersiz sayılır ve her defasında karışıltırılır!");
     let mut open = File::open(file).expect("Hata! Dosya bulunamadı!");
     let reader = BufReader::new(open);
     let mut list = vec![];
-    for line in reader.lines() {
-        list.push(line?)
+    let mut over_size = false;
+    for (_i, line) in reader.lines().enumerate() {
+        if _i < 30 {
+            list.push(line?)
+        } else {
+            over_size = true
+        }
+    }
+    if over_size {
+        println!("İsim listesinde 30'dan fazla kayıt mevcut. 30'dan sonrası listeye dahil edilmemiştir.");
+        println!("30 kişiden fazla listeniz varsa bunların listesini ikinci bir parti olarak alabilirsiniz");
+        println!("Örneğin: liste1.txt (30 kişi), liste2.txt (10 Kişi)");
     }
     list.shuffle(&mut thread_rng());
 
