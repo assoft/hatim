@@ -124,10 +124,8 @@ fn read_user_list(file: &str) -> std::io::Result<()> {
     let mut start = 1;
     let mut hatim_list : Vec<User> = vec![];
     for (_i, user) in list.iter().enumerate() {
-        // println!("{}. {}", start, user);
         let mut row = User::add(user, generate_weeks(1, (_i + 1) as i32));
         hatim_list.push(row);
-        // generate_weeks(1, start);
         start += 1
     }
     write_table(hatim_list);
@@ -155,13 +153,6 @@ fn generate_weeks(week: i32, start: i32) -> std::vec::Vec<Cuz> {
 
             temp.push(cuz);
             
-            // DEBUG
-            // println!(
-            //     "Cüz: {}, {} - {}",
-            //     counter,
-            //     start_date.format("%Y-%m-%d"),
-            //     end_date.format("%Y-%m-%d")
-            // );
             week += 1;
         }
         temp
@@ -173,7 +164,6 @@ fn generate_weeks(week: i32, start: i32) -> std::vec::Vec<Cuz> {
     list = generator(start, max);
 
     if balance > 0 {
-        // FIXME: Balance'a kalan günler için tarihler önceki listeden devam etmeli!
         kalan = generator(1, balance - 1);
     }
     if(kalan.len() > 0) {
