@@ -101,10 +101,11 @@ fn write_table(list: Vec<User>) -> std::io::Result<()> {
     let first_year = &dates[0][first_len - 4 .. first_len]; 
     let last_len = dates[29].len();
     let last_year = &dates[29][last_len - 4 .. last_len];
-    // println!("{}", last_slice);
     let name = format!("hatim_listesi-[{}-{}].txt", first_year, last_year);
+
     let out = File::create(name)?;
     table.to_csv(out)?;
+
     Ok(())
 }
 
@@ -130,14 +131,6 @@ fn read_user_list(file: &str) -> std::io::Result<()> {
         start += 1
     }
     write_table(hatim_list);
-    // for item in hatim_list.iter() {
-        // println!("{}", item.name);
-        // println!("Cüzler: -----------------");
-        // for cuz in item.cuzler.iter() {
-        //     println!("{}, {} - {}", cuz.cuz, cuz.start_date, cuz.end_date);
-        // }
-        // println!("-------------------------");
-    // }
     Ok(())
 }
 
